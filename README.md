@@ -1,6 +1,6 @@
 # subly-test
 
-<h3>Set up client</h3>
+<h3>Setup client</h3>
 
 <ul>
     <li>
@@ -11,7 +11,7 @@
     </li>
 </ul>
 
-<h3>Set up server</h3>
+<h3>Setup server</h3>
 
 <ul>
     <li>
