@@ -5,10 +5,10 @@ import {
   Tab, Typography,
 } from "@material-ui/core";
 import useStyles from "./styles";
-import Login from "./Login";
-import SignUp from "./SignUp";
+import LoginForm from "./LoginForm";
+import SignUpForm from "./SignUpForm";
 
-function Main(props) {
+function AuthPage(props) {
   var classes = useStyles();
 
   var [activeTabId, setActiveTabId] = useState(0);
@@ -36,10 +36,10 @@ function Main(props) {
           </Tabs>
           <div>
             {activeTabId === 0 && (
-              <Login/>
+              <LoginForm/>
             )}
             {activeTabId === 1 && (
-              <SignUp/>
+              <SignUpForm/>
             )}
           </div>
         </div>
@@ -48,4 +48,4 @@ function Main(props) {
   );
 }
 
-export default Main;
+export default AuthPage;

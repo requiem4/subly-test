@@ -1,3 +1,4 @@
+import passport from "passport";
 const jwt = require('express-jwt');
 import {Request} from 'express';
 
@@ -10,18 +11,21 @@ class Authorization {
         return null;
     };
 
-    public static checkAuth = {
-        required: jwt({
-            secret: 'secret',
-            userProperty: 'payload',
-            getToken: Authorization.getTokenFromHeaders,
-        }),
-        optional: jwt({
-            secret: 'secret',
-            userProperty: 'payload',
-            getToken: Authorization.getTokenFromHeaders,
-            credentialsRequired: false,
-        }),
+    public static checkJwt(){
+        return {
+            required: jwt({
+                secret: 'secret',
+                getToken: Authorization.getTokenFromHeaders,
+            }),
+            optional: jwt({
+                secret: 'secret',
+                getToken: Authorization.getTokenFromHeaders,
+                credentialsRequired: false,
+            }),
+        }
+    }
+    public static checkAuth(){
+        return passport.authenticate('jwt', { session: false });
     }
 }
 

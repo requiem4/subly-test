@@ -1,0 +1,4 @@
+{
+  "apiPath": "http://localhost:4001/api/",
+  "apiVersion": "v1"
+}

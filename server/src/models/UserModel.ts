@@ -1,78 +1,97 @@
-import {DataTypes, Model, Options, Association} from 'sequelize';
+import {Association, DataTypes, Model} from 'sequelize';
 import db from '@config/sequelize'
 import FileModel from "@models/FileModel";
 
 const sequelize = db.sequelize
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+const bcrypt = require('bcrypt')
 
 export interface UserInterface {
   id: number;
   name: string;
   email: string;
-  password: string;
   token: string;
   country_origin: string,
   created_at: Date,
   updated_at: Date,
-  salt: string;
 }
 
 /**
  * class UserModel
  */
 class UserModel extends Model<UserInterface> implements UserInterface {
+  private salt!: string;
+  private password!: string;
+
   public id!: number;
-  public name: string = '';
-  public password!: string;
   public email!: string;
+  public name: string = '';
   public country_origin!: string;
   public created_at: Date = new Date();
   public updated_at: Date = new Date();
   public token: string = '';
+  public saltRounds = 10;
 
   public readonly files?: FileModel[];
 
-  public static associate(models: any){
+  public static associate(models: any) {
     UserModel.hasMany(FileModel, {
       sourceKey: "id",
       foreignKey: "user_id",
       as: "files", // this determines the name in `associations`!
     });
   };
+
   public static associations: {
     files: Association<UserModel, FileModel>;
   };
 
-  get salt() {
-    return crypto.randomBytes(16).toString('hex');
+  public async validateUser() {
+    const userModel = await UserModel.findOne({where: {email: this.email}});
+    if (this.validate() && !userModel) {
+      return true;
+    }
+    return false;
   }
 
-  setPassword(password: string) {
-    this.token = crypto
-        .pbkdf2Sync(password, this.salt, 10000, 512, 'sha512')
-        .toString('hex');
+  public async createUser() {
+    this.setPassword(this.password);
+    return await this.save();
+  }
+
+  /**
+   * Generate salt method
+   * @return string
+   */
+  private static generateSalt() {
+    return crypto.randomBytes(16).toString('hex')
+  }
+
+  /**
+   * Set user password
+   * @param password
+   */
+  public setPassword(password: string) {
+    this.password = bcrypt.hashSync(password, this.saltRounds);
   };
 
-  validatePassword(password: string) {
-    const hash = crypto
-        .pbkdf2Sync(password, this.salt, 10000, 512, 'sha512')
-        .toString('hex');
-    return this.token === hash;
+  /**
+   * Validate user password
+   * @param password
+   */
+  public validatePassword(password: string) {
+    return bcrypt.compareSync(password, this.password)
   };
 
-  generateJWT() {
-    const today = new Date();
-    const expirationDate = new Date(today);
-    expirationDate.setDate(today.getDate() + 60);
-
+  private generateJWT() {
     return jwt.sign({
       id: this.id,
-      exp: (expirationDate.getTime() / 1000).toString(10),
+      email: this.email
     }, 'secret');
   }
 
-  toAuthJSON() {
+  public toAuthJSON() {
     return {
       _id: this.id,
       email: this.email,
@@ -88,16 +107,40 @@ UserModel.init({
     primaryKey: true,
   },
   name: DataTypes.STRING,
-  first_name: DataTypes.STRING,
-  last_name: DataTypes.STRING,
-  email: DataTypes.STRING,
+  email: {
+    type: DataTypes.STRING,
+    validate: {
+      isEmail: true,
+      isUnique: function (email: string, done: Function) {
+        UserModel.findOne({where: {email: email}})
+            .done(function (err: Error, user: object) {
+              if (err) {
+                done(err);
+              }
+              if (user) {
+                done(new Error('Email already in use'));
+              }
+              done();
+            });
+      }
+    }
+  },
   country_origin: DataTypes.STRING,
   password: DataTypes.STRING,
   created_at: DataTypes.DATE,
   updated_at: DataTypes.DATE
 }, {
   tableName: 'users',
-  sequelize
+  sequelize,
+  getterMethods: {
+    toJSON: function () {
+      let values = Object.assign({}, this.get());
+      Object.assign(values).forEach((value: any) => {
+        delete value.password;
+      })
+      return values;
+    }
+  },
 });
 
 export default UserModel

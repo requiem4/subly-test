@@ -1,10 +1,24 @@
 import axios from 'axios';
-// const version = 'v1'
-export default axios.create({
-  baseURL: 'http://localhost:4001/',
+import config from '../Configs/config'
+
+
+const axiosInstance = axios.create({
+  baseURL: config.apiPath + config.apiVersion,
   headers: {
     Authorization: 'Bearer ' + localStorage.getItem('token'),
     Accept: 'application/json',
     'Content-Type': 'application/json',
   }
 });
+/*axiosInstance.interceptors.response.use(function (response) {
+  return response;
+}, function (error) {
+  debugger
+  if (401 === error.response.status) {
+    localStorage.clear();
+    window.location = '/';
+  } else {
+    return Promise.reject(error);
+  }
+});*/
+export default axiosInstance

@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Drawer, IconButton, List } from "@material-ui/core";
 import {
   Home as HomeIcon,
-  ListAltSharp as ListAltSharpIcon,
   ArrowBack as ArrowBackIcon,
 } from "@material-ui/icons";
+import PeopleIcon from '@material-ui/icons/People';
+import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 import { useTheme } from "@material-ui/styles";
 import { withRouter } from "react-router-dom";
 import classNames from "classnames";
@@ -23,7 +24,8 @@ import {
 
 const structure = [
   { id: 0, label: "Dashboard", link: "/dashboard", icon: <HomeIcon /> },
-  { id: 1, label: "Survey", link: "/survey", icon: <ListAltSharpIcon /> },
+  { id: 1, label: "Files", link: "/files", icon: <InsertDriveFileIcon /> },
+  { id: 2, label: "Users", link: "/users", icon: <PeopleIcon /> },
   /*{
     id: 4,
     label: "UI Elements",

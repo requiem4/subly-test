@@ -4,8 +4,10 @@
  */
 const express = require('express');
 const siteRouter = express.Router();
-import AuthRouter from './AuthRouter'
 
-siteRouter.use('/auth', AuthRouter)
+
+siteRouter.use('/test', function (request: Request, response: Response) {
+    return response.json();
+})
 
 export default siteRouter

@@ -1,7 +1,8 @@
 import React  from 'react'
 import { UserProvider, useUserState } from './UserContext'
 import AppLayout from "../Components/Layout/AppLayout";
-import Main from "../Pages/Auth/Main";
+import AuthPage from "../Pages/Auth/AuthPage";
+import ForgotPasswordPage from '../Pages/Auth/ForgotPasswordPage'
 import {HashRouter, Switch, Route, Redirect} from "react-router-dom";
 var AppStateContext = React.createContext();
 var AppDispatchContext = React.createContext();
@@ -54,7 +55,8 @@ function Authenticate() {
           path="/"
           render={() => <Redirect to="/dashboard" />}
         />
-        <PublicRoute path="/login" component={Main} />
+        <PublicRoute path="/login" component={AuthPage} />
+        <PublicRoute path="/change-password" component={ForgotPasswordPage} />
         <PrivateRoute path="/" component={AppLayout} />
         <Route component={Error} />
       </Switch>

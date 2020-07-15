@@ -14,6 +14,8 @@ import useStyles from "./stylesContent";
 import Dashboard from "../../Pages/Dashboard/Dashboard";
 // context
 import { useAppState } from "../../Context/AppContext";
+import FilePage from "../../Pages/File/FilePage";
+import UserPage from "../../Pages/User/UserPage";
 
 function Content(props) {
   var classes = useStyles();
@@ -29,11 +31,8 @@ function Content(props) {
     >
       <Switch>
         <Route path="/dashboard" component={Dashboard} />
-        <Route
-          exact
-          path="/ui"
-          render={() => <Redirect to="/ui/icons" />}
-        />
+        <Route path="/files" component={FilePage} />
+        <Route path="/users" component={UserPage} />
       </Switch>
     </div>
   );

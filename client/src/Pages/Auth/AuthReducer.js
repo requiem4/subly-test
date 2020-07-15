@@ -1,4 +1,4 @@
-import * as ACTION_TYPES from '../../Actions/AuthAction/ActionTypes'
+import * as ACTION_TYPES from '../../Configs/ActionTypes'
 
 export const initialState = {
   isAuthenticated: false,

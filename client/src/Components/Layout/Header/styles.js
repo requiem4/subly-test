@@ -13,6 +13,7 @@ export default makeStyles(theme => ({
     },
   },
   appBar: {
+    background: 'linear-gradient(230deg,#520f9a,#e2186f 100%,#fff)',
     // background: 'linear-gradient(to right, #BF953F, #FCF6BA, #AA771C)',
     width: "100vw",
     zIndex: theme.zIndex.drawer + 1,

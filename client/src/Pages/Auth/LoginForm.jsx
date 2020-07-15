@@ -15,9 +15,10 @@ import useStyles from "./styles";
 import google from "../../Assets/logo.svg";
 
 // context
-import { useUserDispatch, loginUser } from "../../Context/UserContext";
+import {useUserDispatch, loginUser} from "../../Context/UserContext";
+import {Link} from "react-router-dom";
 
-function Login(props) {
+function LoginForm(props) {
   var classes = useStyles();
 
   // global
@@ -94,13 +95,14 @@ function Login(props) {
             Login
           </Button>
         )}
-        <Button
+        <Link
           color="primary"
           size="large"
           className={classes.forgetButton}
+          to={'change-password'}
         >
-          Forget Password
-        </Button>
+          Forget Password?
+        </Link>
       </div>
       <div className={classes.formDividerContainer}>
         <div className={classes.formDivider} />
@@ -115,4 +117,4 @@ function Login(props) {
   );
 }
 
-export default Login;
+export default LoginForm;

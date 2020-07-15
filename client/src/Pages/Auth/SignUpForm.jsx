@@ -5,7 +5,7 @@ import google from "../../Assets/logo.svg";
 import useStyles from "./styles";
 import React, {useState} from "react";
 
-function SignUp(props) {
+function SignUpForm(props) {
   var classes = useStyles();
   // global
   var userDispatch = useUserDispatch();
@@ -123,4 +123,4 @@ function SignUp(props) {
   )
 }
 
-export default SignUp;
+export default SignUpForm;

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Provider} from 'react-redux'
-import store from './Stores/Index'
+import store from './Configs/Store'
 import {CssBaseline} from "@material-ui/core";
 import {ThemeProvider} from "@material-ui/styles";
 import Themes from "./Themes";

@@ -1,6 +1,6 @@
 import React from "react";
 import AuthApi from "../Api/AuthApi";
-import * as ACTION_TYPES from '../Actions/AuthAction/ActionTypes'
+import * as ACTION_TYPES from '../Configs/ActionTypes'
 var UserStateContext = React.createContext();
 var UserDispatchContext = React.createContext();
 
@@ -56,11 +56,11 @@ export { UserProvider, useUserState, useUserDispatch, loginUser, signOut, signUp
 async function loginUser(dispatch, email, password, history, setIsLoading, setError) {
   setError(false);
   setIsLoading(true);
-
   if (!!email && !!password) {
-    let response = await AuthApi.login(email, password)
-    debugger
+    let response = await AuthApi.login(email, password);
+
     if(response.user){
+      debugger
       const user = response.user
       if(user.token){
         localStorage.setItem("token", user.token);
@@ -83,7 +83,21 @@ async function signUp(dispatch, user, history, setIsLoading, setError) {
   setError(false);
   // setIsLoading(true);
   if(!!user){
-    await AuthApi.register(user)
+    let response = await AuthApi.register(user)
+
+    if(response.user){
+      const user = response.user
+      if(user.token){
+        localStorage.setItem("token", user.token);
+        dispatch({ type:  ACTION_TYPES.LOGIN_SUCCESS});
+        setError(null);
+        setIsLoading(false);
+      }
+    } else {
+      dispatch({ type: ACTION_TYPES.LOGIN_FAILURE });
+      setError(true);
+      setIsLoading(false);
+    }
   }
 }
 async function signOut(dispatch, history) {

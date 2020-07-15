@@ -1,8 +1,6 @@
-import { Request, Response, NextFunction } from "express";
-import User from '@models/UserModel';
+import {NextFunction, Request, Response} from "express";
 import UserModel from "@models/UserModel";
-// const User = require('../models/UserModel');
-const passport = require('passport');
+import passport from "@config/passport";
 
 class AuthController {
 
@@ -32,16 +30,21 @@ class AuthController {
         }
 
         const user = new UserModel(params);
-
-        user.setPassword(user.password);
-
-        return user.save()
-            .then(() => res.json({user: user.toAuthJSON()}));
+        if (user.validateUser()) {
+            return user.createUser().then((res1) => {
+                return res.json({user: user.toAuthJSON()})
+            })
+        }
+        return res.status(422).json({
+            errors: {
+                data: 'is invalid',
+            },
+        });
     }
 
     static async login(req: Request, res: Response, next: NextFunction) {
-        const email = req.param('email');
-        const password = req.param('password');
+        const email = req.body.email;
+        const password = req.body.password;
         if (!email) {
             return res.status(422).json({
                 errors: {
@@ -58,16 +61,14 @@ class AuthController {
             });
         }
 
-        return passport.authenticate('local', {session: false}, (error: Error, passportUser: UserModel) => {
+
+        return passport.authenticate('local', {session: false}, async (error: Error, passportUser: UserModel) => {
             if (error) {
-                return next(error);
+                return res.json(error);
             }
 
             if (passportUser) {
-                const user = passportUser;
-                user.token = passportUser.generateJWT();
-
-                return res.json({user: user.toAuthJSON()});
+                return res.json({user: passportUser.toAuthJSON()});
             }
 
             return res.status(401).json({
@@ -75,11 +76,10 @@ class AuthController {
                     password: 'is required',
                 },
             });
-        })
+        })(req, res, next);
     }
 
     static async logout(req: Request, res: Response, next: NextFunction) {
-        passport.deserializeUser()
         return res.send({logout: true})
     }
 
