@@ -4,16 +4,6 @@ export default makeStyles(theme => ({
   widgetWrapper: {
     display: "flex",
     width: '100%',
-
-  },
-  widgetRoot: {
-    boxShadow: theme.customShadows.widget,
-  },
-  noPadding: {
-    padding: 0,
-  },
-  widgetContent: {
-    display: "flex",
     flexDirection: "column",
     flexGrow: 1,
     overflow: "hidden",
@@ -25,6 +15,15 @@ export default makeStyles(theme => ({
     borderRadius: '10px',
     color: theme.palette.white.main,
     background: theme.palette.dark.background
+  },
+  widgetRoot: {
+    boxShadow: theme.customShadows.widget,
+  },
+  noPadding: {
+    padding: 0,
+  },
+  widgetContent: {
+
   },
   moreButton: {
     margin: -theme.spacing(1),

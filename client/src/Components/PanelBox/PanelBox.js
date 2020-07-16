@@ -9,14 +9,13 @@ import useStyles from "./styles";
 
 export default function PanelBox({children, ...props}) {
   var classes = useStyles();
-
   return (
     <div className={classes.widgetWrapper}>
       <div className={classes.widgetHeader}>
-        {children.header}
+        {props.header}
       </div>
       <div className={classes.widgetContent}>
-        {children.body}
+        {children}
       </div>
     </div>
   );

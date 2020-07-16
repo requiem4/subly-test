@@ -61,7 +61,6 @@ class AuthController {
             });
         }
 
-
         return passport.authenticate('local', {session: false}, async (error: Error, passportUser: UserModel) => {
             if (error) {
                 return res.json(error);
@@ -80,6 +79,7 @@ class AuthController {
     }
 
     static async logout(req: Request, res: Response, next: NextFunction) {
+        req.logout();
         return res.send({logout: true})
     }
 

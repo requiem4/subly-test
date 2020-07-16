@@ -1,14 +1,7 @@
 import React, {useState} from "react";
-import {
-  Paper,
-  IconButton,
-  Menu,
-  MenuItem,
-  Typography,
-} from "@material-ui/core";
+import {IconButton, Menu, MenuItem, Paper, Typography,} from "@material-ui/core";
 import {MoreVert as MoreIcon} from "@material-ui/icons";
 import classnames from "classnames";
-
 // styles
 import useStyles from "./styles";
 
@@ -28,13 +21,13 @@ export default function Widget({
 
   return (
     <div className={classes.widgetWrapper}>
-      <Paper className={classes.paper, classes.dark} classes={{root: classes.widgetRoot}}>
+      <Paper className={classes.paper, classes.white} classes={{root: classes.widgetRoot}}>
         <div className={classes.widgetHeader}>
           {header ? (
             header
           ) : (
             <React.Fragment>
-              <Typography variant="h5" >
+              <Typography variant="h5">
                 {title}
               </Typography>
               {!disableWidgetMenu && (

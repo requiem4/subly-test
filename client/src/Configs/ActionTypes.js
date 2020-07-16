@@ -23,3 +23,14 @@ export const LOGOUT_FAILURE = "LOGOUT_FAILURE"
 export const GET_USERS = 'GET_USERS'
 export const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS'
 export const GET_USERS_FAILURE = 'GET_USERS_FAILURE'
+
+export const GET_USERS_REPORT = 'GET_USERS_REPORT'
+
+/**
+ * File Page Actions
+ */
+export const GET_FILES = 'GET_FILES'
+export const GET_FILES_SUCCESS = 'GET_FILES_SUCCESS'
+export const GET_FILES_FAILURE = 'GET_FILES_FAILURE'
+
+export const GET_FILES_REPORT = 'GET_USERS_REPORT'

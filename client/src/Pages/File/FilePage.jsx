@@ -1,37 +1,87 @@
-import React, { useState } from "react";
-import { DropzoneDialog } from 'material-ui-dropzone';
+import React, {useEffect} from "react";
+import {DropzoneDialog} from 'material-ui-dropzone';
 import Button from '@material-ui/core/Button';
 import {Grid} from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import useStyles from "./styles";
+import {useDispatch, useSelector} from "react-redux";
+import MUIDataTable from "mui-datatables";
+import {getFiles, uploadFiles} from "./FileMiddleware";
+
 function FilePage() {
   var classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  return(
-    <Paper>
-      <Grid container spacing={1}>
-        <div>
-          <Button variant="contained" color="primary" onClick={() => setOpen(true)}>
-            Add Image
-          </Button>
+  const users = useSelector(state => state.file.files);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getFiles());
+  }, [])
+
+  const submitFiles = (files) => {
+    console.log('Files:', files);
+    dispatch(uploadFiles(files));
+    setOpen(false);
+  }
+  const columns = [
+    {
+      name: "name",
+      label: "Name",
+      options: {
+        filter: true,
+        sort: true,
+      }
+    },
+    {
+      name: "email",
+      label: "Email",
+      options: {
+        filter: true,
+        sort: true,
+      }
+    },
+    {
+      name: "country_origin",
+      label: "Country",
+      options: {
+        filter: true,
+        sort: true,
+      }
+    },
+  ];
+  const options = {
+    filterType: 'checkbox',
+  };
+  return (
+    <>
+      <Grid container spacing={4}>
+        <Grid item xs={12}>
+
           <DropzoneDialog
-            acceptedFiles={['.mp4','.wav']}
+            acceptedFiles={['.mp4', '.wav']}
             cancelButtonText={"cancel"}
             submitButtonText={"submit"}
-            maxFileSize={5000000}
+            maxFileSize={10000000}
             dropzoneText={"Upload .mp4 or .wav"}
             open={open}
             onClose={() => setOpen(false)}
-            onSave={(files) => {
-              console.log('Files:', files);
-              setOpen(false);
-            }}
+            onSave={submitFiles}
             showPreviews={true}
             showFileNamesInPreview={true}
           />
-        </div>
+          <MUIDataTable
+            title={
+              <Button variant="contained" color="primary"
+                      onClick={() => setOpen(true)}>
+              Upload File
+            </Button>}
+            data={users}
+            columns={columns}
+            options={options}
+          />
+        </Grid>
       </Grid>
-    </Paper>
+    </>
   )
 }
+
 export default FilePage

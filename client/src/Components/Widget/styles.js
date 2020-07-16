@@ -43,4 +43,8 @@ export default makeStyles(theme => ({
     color: theme.palette.white.main,
     background:theme.palette.primary.dark
   }),
+  white: props => ({
+    color: theme.palette.primary.main,
+    background:theme.palette.white.main
+  }),
 }));

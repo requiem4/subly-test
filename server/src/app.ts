@@ -1,9 +1,15 @@
+import 'module-alias/register'
+import './config/sequelize'
+import './config/passport'
+
+import router from './routes/index'
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
+
 const bodyParser = require('body-parser')
 const whitelist = [
     'http://localhost:3000',
@@ -18,11 +24,6 @@ const corsOptions = {
         }
     }
 }
-import 'module-alias/register'
-import './config/sequelize'
-import './config/passport'
-
-import router from './routes/index'
 
 /**
  * Configure our app

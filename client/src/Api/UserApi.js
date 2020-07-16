@@ -8,4 +8,11 @@ export default class UserApi {
       return response
     })
   }
+  static getUsersReport = async (params) => {
+    return await api.get('/users/report',params).then((response) => {
+      return response.data
+    }).catch((response) => {
+      return response
+    })
+  }
 }
