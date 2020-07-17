@@ -1,14 +1,14 @@
-import React  from 'react'
-import { UserProvider, useUserState } from './UserContext'
+import React from 'react'
+import {UserProvider, useUserState} from './UserContext'
 import AppLayout from "../Components/Layout/AppLayout";
 import AuthPage from "../Pages/Auth/AuthPage";
 import ForgotPasswordPage from '../Pages/Auth/ForgotPasswordPage'
-import {HashRouter, Switch, Route, Redirect} from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
+
 var AppStateContext = React.createContext();
 var AppDispatchContext = React.createContext();
+
 function AppProvider({children}) {
-  // const [isLoading, setLoading] = useState(true);
-  // const [isAuthenticated, setAuth] = useState(false);
   var [state, dispatch] = React.useReducer(AppReducer, {
     isSidebarOpened: true,
   })
@@ -20,10 +20,11 @@ function AppProvider({children}) {
     </AppStateContext.Provider>
   )
 }
+
 function AppReducer(state, action) {
   switch (action.type) {
     case "TOGGLE_SIDEBAR":
-      return { ...state, isSidebarOpened: !state.isSidebarOpened };
+      return {...state, isSidebarOpened: !state.isSidebarOpened};
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
@@ -37,6 +38,7 @@ function useAppState() {
   }
   return context;
 }
+
 function useAppDispatch() {
   var context = React.useContext(AppDispatchContext);
   if (context === undefined) {
@@ -44,26 +46,27 @@ function useAppDispatch() {
   }
   return context;
 }
+
 function Authenticate() {
-  var { isAuthenticated } = useUserState();
+  var {isAuthenticated} = useUserState();
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Switch>
-        <Route exact path="/" render={() => <Redirect to="/dashboard" />} />
+        <Route exact path="/" render={() => <Redirect to="/dashboard"/>}/>
         <Route
           exact
           path="/"
-          render={() => <Redirect to="/dashboard" />}
+          render={() => <Redirect to="/dashboard"/>}
         />
-        <PublicRoute path="/login" component={AuthPage} />
-        <PublicRoute path="/change-password" component={ForgotPasswordPage} />
-        <PrivateRoute path="/" component={AppLayout} />
-        <Route component={Error} />
+        <PublicRoute path="/login" component={AuthPage}/>
+        <PublicRoute path="/change-password" component={ForgotPasswordPage}/>
+        <PrivateRoute path="/" component={AppLayout}/>
+        <Route component={Error}/>
       </Switch>
-    </HashRouter>
+    </BrowserRouter>
   );
 
-  function PrivateRoute({ component, ...rest }) {
+  function PrivateRoute({component, ...rest}) {
     return (
       <Route
         {...rest}
@@ -85,7 +88,7 @@ function Authenticate() {
     );
   }
 
-  function PublicRoute({ component, ...rest }) {
+  function PublicRoute({component, ...rest}) {
     return (
       <Route
         {...rest}
@@ -104,4 +107,5 @@ function Authenticate() {
     );
   }
 }
+
 export {AppProvider, Authenticate, useAppState, useAppDispatch}

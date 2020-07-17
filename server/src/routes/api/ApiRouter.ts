@@ -10,6 +10,6 @@ import Authorization from "@routes/Authorization";
  */
 const apiRouter = express.Router();
 apiRouter.use('/auth', AuthRouter)// auth.required,
-apiRouter.use('/files', FileRouter)
+apiRouter.use('/files', Authorization.checkJwt().required, FileRouter) //Authorization.checkJwt().required
 apiRouter.use('/users', UserRouter)// auth.required,
 export default apiRouter;

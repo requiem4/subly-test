@@ -1,4 +1,4 @@
-import {GET_USERS, GET_USERS_FAILURE, GET_USERS_REPORT, GET_USERS_SUCCESS} from '../../Configs/ActionTypes'
+import {GET_USERS, GET_USERS_REPORT, SET_USERS, SET_USERS_REPORT} from '../../Configs/ActionTypes'
 
 const initialState = {
   users: [],
@@ -13,28 +13,24 @@ export default function UserReducer(state = initialState, action) {
         ...state,
         pending: true
       }
-      break;
-    case GET_USERS_SUCCESS:
+    case SET_USERS:
       return {
         ...state,
         pending: false,
         users: action.payload
       }
-      break;
-    case GET_USERS_FAILURE:
+    case GET_USERS_REPORT:
       return {
         ...state,
         pending: false,
-        error: action.error
       }
-    case GET_USERS_REPORT:
+    case SET_USERS_REPORT:
       return {
         ...state,
         pending: false,
         report: action.payload
       }
     default:
-      // the dispatched action is not in this reducer, return the state unchanged
-      return state;
   }
+  return state;
 }

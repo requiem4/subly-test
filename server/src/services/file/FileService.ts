@@ -16,8 +16,13 @@ class FileService {
 
     private async saveFile(params: [] = []) {
         let uploadingStatus = {}
-        let file = new FileModel(params);
-        const saved = await file.save();
+        let file = new FileModel();
+        /*file.name = params['originalname']
+        file.size = params['size']
+        file.type = params['type']
+        file.user_id = params['user_id']
+        file.upload_duration = params['upload_duration']*/
+        uploadingStatus = await file.save();
         return uploadingStatus
     }
 

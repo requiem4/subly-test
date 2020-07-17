@@ -58,23 +58,20 @@ async function loginUser(dispatch, email, password, history, setIsLoading, setEr
   setIsLoading(true);
   if (!!email && !!password) {
     let response = await AuthApi.login(email, password);
-
-    if(response.user){
-      debugger
-      const user = response.user
+    if(response && response.data && response.data.user){
+      const user = response.data.user
       if(user.token){
-        localStorage.setItem("token", user.token);
-        dispatch({ type:  ACTION_TYPES.LOGIN_SUCCESS});
         setError(null);
         setIsLoading(false);
+        dispatch({ type:  ACTION_TYPES.LOGIN_SUCCESS, payload: user});
       }
     } else {
-      dispatch({ type: ACTION_TYPES.LOGIN_FAILURE });
       setError(true);
       setIsLoading(false);
+      localStorage.removeItem("token");
+      history.push('/login')
     }
   } else {
-    dispatch({ type: ACTION_TYPES.LOGIN_FAILURE });
     setError(true);
     setIsLoading(false);
   }
@@ -101,11 +98,11 @@ async function signUp(dispatch, user, history, setIsLoading, setError) {
   }
 }
 async function signOut(dispatch, history) {
-  let response = await AuthApi.logout()
+  /*let response = await AuthApi.logout()
   if(response.status){
-    localStorage.removeItem("token");
-    dispatch({ type: ACTION_TYPES.LOGOUT_SUCCESS });
-  }
+  }*/
+  localStorage.removeItem("token");
+  dispatch({ type: ACTION_TYPES.LOGOUT_SUCCESS });
   history.push("/login");
 }
 async function changePassword(dispatch, email, history){

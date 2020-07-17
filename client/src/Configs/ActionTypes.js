@@ -21,16 +21,20 @@ export const LOGOUT_FAILURE = "LOGOUT_FAILURE"
  * User Page Actions
  */
 export const GET_USERS = 'GET_USERS'
-export const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS'
-export const GET_USERS_FAILURE = 'GET_USERS_FAILURE'
+export const SET_USERS = 'SET_USERS'
 
 export const GET_USERS_REPORT = 'GET_USERS_REPORT'
+export const SET_USERS_REPORT = 'SET_USERS_REPORT'
 
 /**
  * File Page Actions
  */
 export const GET_FILES = 'GET_FILES'
-export const GET_FILES_SUCCESS = 'GET_FILES_SUCCESS'
-export const GET_FILES_FAILURE = 'GET_FILES_FAILURE'
+export const SET_FILES = 'SET_FILES'
 
-export const GET_FILES_REPORT = 'GET_USERS_REPORT'
+export const GET_FILES_REPORT = 'GET_FILES_REPORT'
+export const SET_FILES_REPORT = 'SET_FILES_REPORT'
+
+export const UPLOAD_FILES = 'UPLOAD_FILES'
+export const UPLOAD_FILES_SUCCESS = 'UPLOAD_FILES_SUCCESS'
+export const UPLOAD_FILES_ERROR = 'UPLOAD_FILES_ERROR'

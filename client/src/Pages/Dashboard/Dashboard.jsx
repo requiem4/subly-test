@@ -1,18 +1,14 @@
 import React, {useEffect} from "react";
-import {
-  Grid, Typography,
-} from "@material-ui/core";
-
+import {Grid, Typography,} from "@material-ui/core";
 // styles
 import useStyles from "./styles";
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import PanelBox from "../../Components/PanelBox/PanelBox";
 import Widget from "../../Components/Widget/Widget";
 import {useDispatch, useSelector} from "react-redux";
 import Dot from "../../Components/Layout/Sidebar/components/Dot";
-import {getUsersReport} from "../User/UserMiddleware";
-import {getFilesReport} from "../File/FileMiddleware";
+import {getUsersReport} from "../User/UserActionsApi";
+import {getFilesReport} from "../File/FileActionsApi";
 
 // components
 
@@ -24,7 +20,7 @@ export default function Dashboard(props) {
   useEffect(() => {
     dispatch(getUsersReport());
     dispatch(getFilesReport());
-  }, [])
+  })
   return (
     <>
       <Grid container spacing={4}>
@@ -66,54 +62,44 @@ export default function Dashboard(props) {
           >
 
             <div className={classes.legendElement}>
-              <Dot color="warning" />
+              <Dot color="warning"/>
               <Typography
-                color="text"
-                colorBrightness="secondary"
                 className={classes.legendElementText}
               >
-                Integration
+                Wav
               </Typography>
             </div>
             <div className={classes.legendElement}>
-              <Dot color="primary" />
+              <Dot color="primary"/>
               <Typography
-                color="text"
-                colorBrightness="secondary"
                 className={classes.legendElementText}
               >
-                SDK
+                Mp4
               </Typography>
             </div>
             <div className={classes.progressSection}>
               <Typography
                 size="md"
-                color="text"
-                colorBrightness="secondary"
-                className={classes.progressSectionTitle}
               >
-                Integration
+                Wav
               </Typography>
               <LinearProgress
                 variant="determinate"
                 value={30}
-                classes={{ barColorPrimary: classes.progressBar }}
+                classes={{barColorPrimary: classes.progressBar}}
                 className={classes.progress}
               />
             </div>
             <div>
               <Typography
                 size="md"
-                color="text"
-                colorBrightness="secondary"
-                className={classes.progressSectionTitle}
               >
-                SDK
+                Mp4
               </Typography>
               <LinearProgress
                 variant="determinate"
                 value={99}
-                classes={{ barColorPrimary: classes.progressBar }}
+                classes={{barColorPrimary: classes.progressBar}}
                 className={classes.progress}
               />
             </div>

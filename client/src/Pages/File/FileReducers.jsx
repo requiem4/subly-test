@@ -1,10 +1,4 @@
-import {
-  GET_FILES,
-  GET_FILES_FAILURE,
-  GET_FILES_REPORT,
-  GET_FILES_SUCCESS,
-  GET_USERS_REPORT
-} from '../../Configs/ActionTypes'
+import {GET_FILES, GET_FILES_REPORT, SET_FILES, SET_FILES_REPORT} from '../../Configs/ActionTypes'
 
 const initialState = {
   files: [],
@@ -29,31 +23,25 @@ export default function FileReducer(state = initialState, action) {
       return {
         ...state,
         pending: true
-      }
-      break;
-    case GET_FILES_SUCCESS:
+      };
+    case SET_FILES:
       return {
         ...state,
         pending: false,
         files: action.payload
-      }
-      break;
-    case GET_FILES_FAILURE:
+      };
+    case GET_FILES_REPORT:
+      return {
+        ...state,
+        pending: false
+      };
+    case SET_FILES_REPORT:
       return {
         ...state,
         pending: false,
-        error: action.error
-      }
-    case GET_FILES_REPORT:
-      if(action.payload.length > 0){
-        return {
-          ...state,
-          pending: false,
-          report: action.payload
-        }
+        report: action.payload
       }
     default:
-      // the dispatched action is not in this reducer, return the state unchanged
-      return state;
   }
+  return state;
 }

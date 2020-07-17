@@ -13,7 +13,6 @@ const axiosInstance = axios.create({
 /*axiosInstance.interceptors.response.use(function (response) {
   return response;
 }, function (error) {
-  debugger
   if (401 === error.response.status) {
     localStorage.clear();
     window.location = '/';

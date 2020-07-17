@@ -2,20 +2,17 @@ import React, {useEffect} from "react";
 import {DropzoneDialog} from 'material-ui-dropzone';
 import Button from '@material-ui/core/Button';
 import {Grid} from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
-import useStyles from "./styles";
 import {useDispatch, useSelector} from "react-redux";
 import MUIDataTable from "mui-datatables";
-import {getFiles, uploadFiles} from "./FileMiddleware";
+import {getFiles, uploadFiles} from "./FileActionsApi";
 
 function FilePage() {
-  var classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const users = useSelector(state => state.file.files);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getFiles());
-  }, [])
+  })
 
   const submitFiles = (files) => {
     console.log('Files:', files);
@@ -72,8 +69,8 @@ function FilePage() {
             title={
               <Button variant="contained" color="primary"
                       onClick={() => setOpen(true)}>
-              Upload File
-            </Button>}
+                Upload File
+              </Button>}
             data={users}
             columns={columns}
             options={options}

@@ -21,7 +21,7 @@ export default function Widget({
 
   return (
     <div className={classes.widgetWrapper}>
-      <Paper className={classes.paper, classes.white} classes={{root: classes.widgetRoot}}>
+      <Paper className={classes.paper} classes={{root: classes.widgetRoot}}>
         <div className={classes.widgetHeader}>
           {header ? (
             header

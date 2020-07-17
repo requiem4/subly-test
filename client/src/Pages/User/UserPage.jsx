@@ -2,14 +2,14 @@ import React, {useEffect} from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import {Grid} from "@material-ui/core";
 import MUIDataTable from "mui-datatables";
-import {getUsers} from "./UserMiddleware";
+import {getUsers} from "./UserActionsApi";
 
 function UserPage() {
   const users = useSelector(state => state.user.users);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUsers());
-  }, [])
+  })
   const columns = [
     {
       name: "name",

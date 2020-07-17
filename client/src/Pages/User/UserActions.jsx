@@ -1,8 +1,8 @@
 import {
   GET_USERS,
-  GET_USERS_FAILURE,
+  SET_USERS,
   GET_USERS_REPORT,
-  GET_USERS_SUCCESS
+  SET_USERS_REPORT,
 } from "../../Configs/ActionTypes";
 
 export function getUsersAction() {
@@ -11,23 +11,23 @@ export function getUsersAction() {
   };
 }
 
-export function getUsersSuccessAction(data) {
+export function setUsersAction(data) {
   return {
-    type: GET_USERS_SUCCESS,
+    type: SET_USERS,
     payload: data
-  };
-}
-
-export function getUsersFailureAction(data) {
-  return {
-    type: GET_USERS_FAILURE,
-    error: data
   };
 }
 
 export function getUsersReportAction(data) {
   return {
     type: GET_USERS_REPORT,
+    payload: {}
+  };
+}
+
+export function setUsersReportAction(data) {
+  return {
+    type: SET_USERS_REPORT,
     payload: data
   };
 }

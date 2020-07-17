@@ -1,6 +1,7 @@
 import * as ACTION_TYPES from '../../Configs/ActionTypes'
 
 export const initialState = {
+  user: {},
   isAuthenticated: false,
   profile: null
 }
@@ -8,9 +9,11 @@ export const initialState = {
 const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
     case ACTION_TYPES.LOGIN_SUCCESS:
+      localStorage.setItem("token", action.payload.token);
       return {
         ...state,
-        isAuthenticated: true
+        isAuthenticated: true,
+        user: action.payload
       }
     case ACTION_TYPES.LOGIN_FAILURE:
       return {
