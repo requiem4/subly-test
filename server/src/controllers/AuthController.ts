@@ -30,7 +30,7 @@ class AuthController {
         }
 
         const user = new UserModel(params);
-        if (user.validateUser()) {
+        if (await user.validateUser()) {
             return user.createUser().then((res1) => {
                 return res.json({user: user.toAuthJSON()})
             })

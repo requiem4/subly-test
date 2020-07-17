@@ -86,9 +86,10 @@ async function signUp(dispatch, user, history, setIsLoading, setError) {
       const user = response.user
       if(user.token){
         localStorage.setItem("token", user.token);
-        dispatch({ type:  ACTION_TYPES.LOGIN_SUCCESS});
+        history.push('/dashboard');
         setError(null);
         setIsLoading(false);
+        dispatch({ type:  ACTION_TYPES.LOGIN_SUCCESS});
       }
     } else {
       dispatch({ type: ACTION_TYPES.LOGIN_FAILURE });
