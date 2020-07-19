@@ -18,10 +18,6 @@ function AuthPage(props) {
       <Typography variant="h1" className={classes.greeting}>
         Welcome!
       </Typography>
-      {/*<div className={classes.logotypeContainer}>
-        <img src={logo} alt="logo" className={classes.logotypeImage} />
-        <Typography className={classes.logotypeText}>Material Admin</Typography>
-      </div>*/}
       <div className={classes.formContainer}>
         <div className={classes.form}>
           <Tabs

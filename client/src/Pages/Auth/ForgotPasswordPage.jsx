@@ -1,20 +1,20 @@
 import React, {useState} from "react";
-import {Button, CircularProgress, Fade, Grid, TextField, Typography,} from "@material-ui/core";
+import {Button, CircularProgress, Grid, TextField, Typography,} from "@material-ui/core";
 // styles
 import useStyles from "./styles";
-// context
-import {changePassword, useUserDispatch} from "../../Context/UserContext";
+// logo
 import {Link} from "react-router-dom";
+import {changePassword} from "./AuthActionsApi";
+import {useDispatch} from "react-redux";
 
 function ForgotPasswordPage(props) {
   var classes = useStyles();
 
   // global
-  var userDispatch = useUserDispatch();
+  var userDispatch = useDispatch();
 
   // local
   var [isLoading, setIsLoading] = useState(false);
-  var [error, setError] = useState(null);
   var [emailValue, setEmailValue] = useState("");
 
   return (
@@ -24,11 +24,6 @@ function ForgotPasswordPage(props) {
           <Typography variant="h2" className={classes.subGreeting}>
             Enter your email address
           </Typography>
-          <Fade in={error}>
-            <Typography color="secondary" className={classes.errorMessage}>
-              Something is wrong with email :(
-            </Typography>
-          </Fade>
           <TextField
             id="email"
             InputProps={{
@@ -57,8 +52,7 @@ function ForgotPasswordPage(props) {
                     userDispatch,
                     emailValue,
                     props.history,
-                    setIsLoading,
-                    setError,
+                    setIsLoading
                   )
                 }
                 variant="contained"

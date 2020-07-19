@@ -1,14 +1,16 @@
 import {Button, CircularProgress, Fade, TextField, Typography} from "@material-ui/core";
-import {signUp, useUserDispatch} from "../../Context/UserContext";
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import classnames from "classnames";
 import google from "../../Assets/logo.svg";
 import useStyles from "./styles";
 import React, {useState} from "react";
-
+import {signUp} from "./AuthActionsApi";
+import {useDispatch} from "react-redux";
+import countries from '../../Configs/countries'
 function SignUpForm(props) {
   var classes = useStyles();
   // global
-  var userDispatch = useUserDispatch();
+  var userDispatch = useDispatch();
 
   // local
   var [isLoading, setIsLoading] = useState(false);
@@ -70,6 +72,16 @@ function SignUpForm(props) {
         placeholder="Password"
         type="password"
         fullWidth
+      />
+      <Autocomplete
+        id="country_origin"
+        options={countries}
+        classes={{
+          option: classes.option,
+        }}
+        autoHighlight
+        getOptionLabel={(option) => option.name}
+        value={(option) => option.code}
       />
       <div className={classes.creatingButtonContainer}>
         {isLoading ? (

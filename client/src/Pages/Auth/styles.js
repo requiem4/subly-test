@@ -8,6 +8,11 @@ export default makeStyles(theme => ({
     justifyContent: "center",
     alignItems: "center"
   },
+  center:{
+    marginTop: '15%',
+    justifyContent: "center",
+    alignItems: "center"
+  },
   logotypeContainer: {
     backgroundColor: theme.palette.primary.main,
     width: "60%",

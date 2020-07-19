@@ -1,9 +1,10 @@
 import React from 'react'
-import {UserProvider, useUserState} from './UserContext'
 import AppLayout from "../Components/Layout/AppLayout";
 import AuthPage from "../Pages/Auth/AuthPage";
 import ForgotPasswordPage from '../Pages/Auth/ForgotPasswordPage'
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
+import { createBrowserHistory } from 'history';
+import {useSelector} from "react-redux";
 
 var AppStateContext = React.createContext();
 var AppDispatchContext = React.createContext();
@@ -15,7 +16,7 @@ function AppProvider({children}) {
   return (
     <AppStateContext.Provider value={state}>
       <AppDispatchContext.Provider value={dispatch}>
-        <UserProvider>{children}</UserProvider>
+        {children}
       </AppDispatchContext.Provider>
     </AppStateContext.Provider>
   )
@@ -48,7 +49,7 @@ function useAppDispatch() {
 }
 
 function Authenticate() {
-  var {isAuthenticated} = useUserState();
+  var {isAuthenticated} = useSelector(state => state.auth);
   return (
     <BrowserRouter>
       <Switch>
@@ -107,5 +108,5 @@ function Authenticate() {
     );
   }
 }
-
+export const history = createBrowserHistory();
 export {AppProvider, Authenticate, useAppState, useAppDispatch}

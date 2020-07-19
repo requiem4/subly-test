@@ -9,20 +9,18 @@ import {
 
 // styles
 import useStyles from "./styles";
-
-// logo
-// import logo from "./logo.svg";
 import google from "../../Assets/logo.svg";
 
 // context
-import {useUserDispatch, loginUser} from "../../Context/UserContext";
 import {Link} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {loginUser} from "./AuthActionsApi";
 
 function LoginForm(props) {
   var classes = useStyles();
 
   // global
-  var userDispatch = useUserDispatch();
+  var dispatch = useDispatch();
 
   // local
   var [isLoading, setIsLoading] = useState(false);
@@ -51,7 +49,7 @@ function LoginForm(props) {
         value={loginValue}
         onChange={e => setLoginValue(e.target.value)}
         margin="normal"
-        placeholder="Email Adress"
+        placeholder="Email"
         type="email"
         fullWidth
       />
@@ -79,14 +77,13 @@ function LoginForm(props) {
               loginValue.length === 0 || passwordValue.length === 0
             }
             onClick={() =>
-              loginUser(
-                userDispatch,
+              dispatch(loginUser(
                 loginValue,
                 passwordValue,
                 props.history,
                 setIsLoading,
                 setError,
-              )
+              ))
             }
             variant="contained"
             color="primary"

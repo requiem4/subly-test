@@ -4,6 +4,9 @@
 
 <ul>
     <li>
+    cd client
+    </li>
+    <li>
     npm install
     </li>
     <li>
@@ -15,10 +18,16 @@
 
 <ul>
     <li>
+    cd server
+    </li>
+    <li>
     npm install
     </li>
     <li>
-    sequlizer or /node_modules/.bin/sequelize db:migrate up
+    cd database 
+    </li>
+    <li>
+    sequlizer or ../node_modules/.bin/sequelize db:migrate up
     </li>
     <li>
     npm start
