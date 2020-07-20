@@ -17,18 +17,7 @@ class ReportService {
 
     private fileReport = {
         totalFileCount: 0,
-        sizePerTypes: [{
-            type: FileModel.MP4_FILE_TYPE,
-            maxSize: 0,
-            minSize: 0,
-            percent: 0
-        },
-            {
-                type: FileModel.WAV_FILE_TYPE,
-                maxSize: 0,
-                minSize: 0,
-                percent: 0
-            }],
+        types: {},
         maxFileSize: 0,
         minFileSize: 0,
         avgFileSize: 0
@@ -44,12 +33,22 @@ class ReportService {
 
     public async getFilesReport() {
         const totalFileCount = await FileModel.count();
-        this.fileReport.sizePerTypes.map(async (fileType: any) => {
-            fileType.percent = await FileModel.getFileTypePercent(fileType.type);
-            const size = await FileModel.getFileTypeSizes(fileType.type);
-            fileType.maxSize = size.max;
-            fileType.minSize = size.min;
+        const sizes = await FileModel.getFileTypeSizes();
+        const percents = await FileModel.getFileTypePercents();
+        let typesReport: any = {}
+        sizes.map((fileTypeReport: any) => {
+            if (!fileTypeReport.type) {
+                return;
+            }
+            if (!typesReport[fileTypeReport.type]) {
+                typesReport[fileTypeReport.type] = {}
+            }
+            typesReport[fileTypeReport.type] = fileTypeReport;
         })
+        percents.map((filePercents: any) => {
+            typesReport[filePercents.type] = {...typesReport[filePercents.type], ...filePercents};
+        })
+        this.fileReport.types = typesReport
         this.fileReport.totalFileCount = totalFileCount
 
         return this.fileReport;

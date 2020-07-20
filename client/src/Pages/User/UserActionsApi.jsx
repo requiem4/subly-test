@@ -18,7 +18,6 @@ export function getUsersReport(params = []) {
   return (dispatch) => {
     dispatch(getUsersReportAction());
     UserApi.getUsersReport(params).then(response => {
-      debugger
       if (response.error) {
         throw(response.error);
       }

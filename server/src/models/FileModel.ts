@@ -38,39 +38,42 @@ class FileModel extends Model {
         return FileModel.totalFileCount;
     }
 
-    public static async getFileTypePercent(fileType = '') {
+    public static async getFileTypePercents(fileType = '') {
         const totalFileCount = await FileModel.getTotalFileCount()
-        if (fileType !== FileModel.MP4_FILE_TYPE
-            && fileType !== FileModel.WAV_FILE_TYPE) {
-            return false
-        }
 
-        const fileTypeCount = await FileModel.findAndCountAll({
-            where: {type: fileType}
-        });
-        let fileTypePercent = 0
-
-        if (totalFileCount > 0) {
-            fileTypePercent = (fileTypeCount.count / totalFileCount) * FileModel.HUNDRED_PERCENT
-        }
-        return fileTypePercent
-    }
-
-    public static async getFileTypeSizes(fileType = '') {
-        let sizes = {
-            max: 0,
-            min: 0
-        }
-        sizes.min = await FileModel.findAll({
-            attributes: [[Sequelize.fn('min', Sequelize.col('size')), 'size']],
+        const fileTypesCount = await FileModel.findAll({
+            attributes: [
+                [Sequelize.fn('count', Sequelize.col('id')), 'count'],
+                'type'
+            ],
             group: ['type'],
             raw: true,
         });
-        sizes.max = await FileModel.findAll({
+        let fileTypePercent = 0
+
+        fileTypesCount.map((fileTypeCount: any) => {
+            if (totalFileCount > 0) {
+                fileTypeCount.percent = (fileTypeCount.count / totalFileCount) * FileModel.HUNDRED_PERCENT
+            }
+        })
+
+        return fileTypesCount
+    }
+
+    public static async getFileTypeSizes(fileType = '') {
+        let sizes;
+        sizes = await FileModel.findAll({
             attributes: [
-                [Sequelize.fn('min', Sequelize.col('size')), 'size']
-            ],
+                [Sequelize.fn('min', Sequelize.col('size')), 'minSize'],
+                [Sequelize.fn('max', Sequelize.col('size')), 'maxSize'],
+                'type'],
+            group: ['type'],
+            raw: true,
         });
+        sizes.map( (size: any) => {
+            size.minMb = (size.minSize / 1024 / 1024).toFixed(2)
+            size.maxMb = (size.maxSize / 1024 / 1024).toFixed(2)
+        })
         return sizes
     }
 }

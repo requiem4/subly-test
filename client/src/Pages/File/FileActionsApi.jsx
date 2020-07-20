@@ -65,7 +65,9 @@ export function getFilesReport(params = []) {
     dispatch(getFilesReportAction());
     FileApi.getFilesReport(params)
       .then(response => {
-        debugger
+        if(!response || !response.data){
+          return false
+        }
         if (response.error) {
           throw(response.error);
         }

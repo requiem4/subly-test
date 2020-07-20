@@ -52,7 +52,7 @@ function FilePage() {
         filter: true,
         sort: true,
         customBodyRender:  (value, tableMeta, updateValue) => {
-          return value / 1024 / 1024 + ' MB'
+          return (value / 1024 / 1024).toFixed(2) + ' MB'
         }
       },
 

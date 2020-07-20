@@ -16,6 +16,8 @@ export default function Dashboard(props) {
   var classes = useStyles();
   const userReport = useSelector(state => state.user.report);
   const fileReport = useSelector(state => state.file.report);
+  const mp4Report = fileReport.types.mp4
+  const wavReport = fileReport.types.wav
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUsersReport());
@@ -55,7 +57,7 @@ export default function Dashboard(props) {
         </Grid>
         <Grid item lg={3} md={4} sm={6} xs={12}>
           <Widget
-            title="Type of videos"
+            title="Type of files"
             upperTitle
             bodyClass={classes.fullHeightBody}
             className={classes.card}
@@ -66,7 +68,7 @@ export default function Dashboard(props) {
               <Typography
                 className={classes.legendElementText}
               >
-                Wav
+                Wav {wavReport.count} / {fileReport.totalFileCount}
               </Typography>
             </div>
             <div className={classes.legendElement}>
@@ -74,7 +76,7 @@ export default function Dashboard(props) {
               <Typography
                 className={classes.legendElementText}
               >
-                Mp4
+                Mp4 {mp4Report.count} / {fileReport.totalFileCount}
               </Typography>
             </div>
             <div className={classes.progressSection}>
@@ -85,7 +87,7 @@ export default function Dashboard(props) {
               </Typography>
               <LinearProgress
                 variant="determinate"
-                value={30}
+                value={wavReport.percent}
                 classes={{barColorPrimary: classes.progressBar}}
                 className={classes.progress}
               />
@@ -98,7 +100,7 @@ export default function Dashboard(props) {
               </Typography>
               <LinearProgress
                 variant="determinate"
-                value={99}
+                value={mp4Report.percent}
                 classes={{barColorPrimary: classes.progressBar}}
                 className={classes.progress}
               />
@@ -114,17 +116,18 @@ export default function Dashboard(props) {
           >
             <div className={classes.visitsNumberContainer}>
               <Typography size="xl" weight="medium">
-                Max : {fileReport.maxFileSize}
+                Max wav : {wavReport.maxMb} Mb
+                <div>
+                  Max mp4 : {mp4Report.maxMb} Mb
+                </div>
               </Typography>
             </div>
             <div className={classes.visitsNumberContainer}>
               <Typography size="xl" weight="medium">
-                Min : {fileReport.minFileSize}
-              </Typography>
-            </div>
-            <div className={classes.visitsNumberContainer}>
-              <Typography size="xl" weight="medium">
-                Average : {fileReport.avgFileSize}
+                Min : {wavReport.minMb} Mb
+                <div>
+                  Min mp4 : {mp4Report.minMb} Mb
+                </div>
               </Typography>
             </div>
           </Widget>

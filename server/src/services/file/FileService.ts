@@ -18,7 +18,7 @@ class FileService {
         let uploadingStatus;
         let file = new FileModel();
         let type = params['mimetype'].replace('video/','');
-        type = params['mimetype'].replace('audio/','');
+        type = type.replace('audio/','');
         if(['mp4','wav'].indexOf(type) <= -1){
             return false;
         }

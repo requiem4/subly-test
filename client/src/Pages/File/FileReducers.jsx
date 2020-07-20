@@ -4,14 +4,16 @@ const initialState = {
   files: [],
   report: {
     totalFileCount: 0,
-    sizePerTypes: [{
-      type: 'mp4',
-      size: 0
-    },
-      {
+    types: {
+      mp4: {
+        type: 'mp4',
+        size: 0
+      },
+      wav: {
         type: 'wav',
         size: 0
-      }],
+      }
+    },
     maxFileSize: 0,
     minFileSize: 0,
     avgFileSize: 0
