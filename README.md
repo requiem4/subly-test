@@ -27,7 +27,10 @@
     cd database 
     </li>
     <li>
-    sequlizer or ../node_modules/.bin/sequelize db:migrate up
+        Setup host and database access in /config/config.json
+        </li>
+    <li>
+    sequlizer or node_modules/.bin/sequelize db:migrate up
     </li>
     <li>
     npm start
