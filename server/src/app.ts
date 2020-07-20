@@ -13,7 +13,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser')
 const whitelist = [
     'http://localhost:3000',
-    'http://localhost:4001'
+    'http://localhost:4001',
+    undefined
 ]
 const corsOptions = {
     origin: function (origin: any, callback: any) {
@@ -34,6 +35,7 @@ app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
 }));
+
 app.use('/', router)
 
 app.use(logger('dev'));

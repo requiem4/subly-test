@@ -19,8 +19,8 @@ export default function Dashboard(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUsersReport());
-    dispatch(getFilesReport());
-  })
+    dispatch(getFilesReport())
+  },[dispatch])
   return (
     <>
       <Grid container spacing={4}>

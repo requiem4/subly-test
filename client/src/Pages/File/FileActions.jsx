@@ -1,4 +1,5 @@
 import {
+  DELETE_FILES,
   GET_FILES,
   GET_FILES_REPORT, SET_FILES, SET_FILES_REPORT,
   UPLOAD_FILES,
@@ -23,6 +24,12 @@ export function getFilesReportAction() {
   return {
     type: GET_FILES_REPORT,
     payload: {}
+  };
+}
+
+export function deleteFilesAction() {
+  return {
+    type: DELETE_FILES
   };
 }
 

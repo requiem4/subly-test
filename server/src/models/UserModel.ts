@@ -131,16 +131,7 @@ UserModel.init({
   updated_at: DataTypes.DATE
 }, {
   tableName: 'users',
-  sequelize,
-  getterMethods: {
-    toJSON: function () {
-      let values = Object.assign({}, this.get());
-      Object.assign(values).forEach((value: any) => {
-        delete value.password;
-      })
-      return values;
-    }
-  },
+  sequelize
 });
 
 export default UserModel

@@ -9,7 +9,7 @@ function UserPage() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUsers());
-  })
+  },[dispatch])
   const columns = [
     {
       name: "name",

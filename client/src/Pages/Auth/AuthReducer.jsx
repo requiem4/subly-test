@@ -1,7 +1,6 @@
 import * as ACTION_TYPES from '../../Configs/ActionTypes'
 import {getUserFromJwt} from "./AuthHelpers";
 
-
 const user = getUserFromJwt()
 const initialState = {
   user: user,

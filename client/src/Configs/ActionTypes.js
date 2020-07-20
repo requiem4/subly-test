@@ -36,6 +36,7 @@ export const SET_USERS_REPORT = 'SET_USERS_REPORT'
  */
 export const GET_FILES = 'GET_FILES'
 export const SET_FILES = 'SET_FILES'
+export const DELETE_FILES = 'DELETE_FILES'
 
 export const GET_FILES_REPORT = 'GET_FILES_REPORT'
 export const SET_FILES_REPORT = 'SET_FILES_REPORT'

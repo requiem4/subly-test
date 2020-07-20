@@ -9,8 +9,8 @@ export default class FileApi {
   }
   static uploadFiles = async (files) => {
     var formData = new FormData()
-    files.map((file) => {
-      return formData.append('files', file)
+    files.forEach(function (file) {
+      formData.append('files', file)
     });
     return await api.post('/files/upload', formData, {
         headers: {
@@ -18,5 +18,8 @@ export default class FileApi {
         }
       }
     )
+  }
+  static deleteFiles = async (params) => {
+    return await api.delete('/files', {params: params})
   }
 }

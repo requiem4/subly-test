@@ -20,6 +20,9 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
+      path: {
+        type: Sequelize.STRING
+      },
       type: {
         type: Sequelize.ENUM,
         values: ['mp4', 'wav'],

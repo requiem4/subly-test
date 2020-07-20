@@ -8,7 +8,6 @@ export function loginUser(username, password, history, setIsLoading, setError) {
     if (!!username && !!password) {
       dispatch({type: ACTION_TYPES.LOGIN})
       return await AuthApi.login(username, password).then((response) => {
-        debugger
         if (response && response.data && response.data.user) {
           const user = response.data.user;
           localStorage.setItem("token", user.token);
@@ -18,7 +17,6 @@ export function loginUser(username, password, history, setIsLoading, setError) {
         } else {
           setError(true);
           setIsLoading(false);
-          dispatch({type: ACTION_TYPES.LOGOUT_FAILURE});
         }
       })
     } else {

@@ -12,13 +12,14 @@ class FileModel extends Model {
 
     public static readonly MP4_FILE_TYPE = 'mp4'
     public static readonly WAV_FILE_TYPE = 'wav'
-
+    public allTypes: Array<string> = ['mp4', 'wav']
     public id!: number;
     public name!: string;
+    public path!: string;
     public user_id!: number;
-    public type: Array<string> = ['mp4', 'wav'];
+    public type!: string;
     public upload_duration: number = 0;
-    public size: number = 0;
+    public size!: number|string;
     public created_at: Date = new Date();
     public updated_at: Date = new Date();
 

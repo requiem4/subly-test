@@ -26,7 +26,7 @@ export function getUserFromJwt() {
   const token = localStorage.getItem('token')
   if (token) {
     const jwtInfo = parseJwt(token);
-    user = jwtInfo.user ? jwtInfo.user : {}
+    user = jwtInfo ? jwtInfo : {}
   }
   return user
 }

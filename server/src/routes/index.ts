@@ -8,6 +8,6 @@ const version = 'v1'
 const express = require('express');
 const router = express.Router();
 router.use('/', siteRouter)
-router.use('/api/' + version, apiRouter)
+router.use('/api/' + version,  apiRouter)
 export default router
 

@@ -3,6 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const files = sequelize.define('files', {
     id: DataTypes.Number,
     name: DataTypes.STRING,
+    path: DataTypes.STRING,
     user_id: DataTypes.INT,
     type: DataTypes.ENUM,
     upload_duration: DataTypes.STRING,

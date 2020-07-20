@@ -5,7 +5,7 @@ import {UploadedFile} from "express-fileupload";
  *
  */
 interface FileServiceInterface {
-
+    userId: number|string;
     uploadFiles(): object;
 }
 
@@ -13,32 +13,37 @@ interface FileServiceInterface {
  *
  */
 class FileService {
-
-    private async saveFile(params: [] = []) {
-        let uploadingStatus = {}
+    public userId: number = 0;
+    private async saveFile(params: any) {
+        let uploadingStatus;
         let file = new FileModel();
-        /*file.name = params['originalname']
-        file.size = params['size']
-        file.type = params['type']
-        file.user_id = params['user_id']
-        file.upload_duration = params['upload_duration']*/
+        let type = params['mimetype'].replace('video/','');
+        type = params['mimetype'].replace('audio/','');
+        if(['mp4','wav'].indexOf(type) <= -1){
+            return false;
+        }
+        file.name = params['name'];
+        file.size = params['size'];
+        file.type = type;
+        file.user_id = this.userId;
+        if(params['upload_duration']){
+            file.upload_duration = params['upload_duration'];
+        }
         uploadingStatus = await file.save();
         return uploadingStatus
     }
 
     public async uploadFile(file: UploadedFile) {
-        let status: any[] = [];
-        file.mv('../../../uploads',async function (err:any) {
-            status.push([1]);
+        /*file.mv('../../../uploads',async function (err:any) {
             //await this.saveFile()
-        })
-        return status
+        })*/
+        return await this.saveFile(file)
     }
 
     public async uploadFiles(files: UploadedFile[] = []) {
         let uploadingStatuses: any[] = [];
-        files.map((file) => {
-            uploadingStatuses.push(this.uploadFile(file))
+        files.map( async (file) => {
+            uploadingStatuses.push(await this.uploadFile(file))
         })
         return uploadingStatuses
     }
