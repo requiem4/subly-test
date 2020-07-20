@@ -26,7 +26,7 @@ export function loginUser(username, password, history, setIsLoading, setError) {
   }
 }
 
-export function signOut(dispatch, history) {
+export function signOut(history) {
   return (dispatch) => {
     // await AuthApi.logout()
     dispatch({type: ACTION_TYPES.LOGOUT_SUCCESS});
@@ -52,16 +52,15 @@ export function signUp(user, history, setIsLoading, setError) {
     if (!!user) {
       let response = await AuthApi.register(user)
 
-      if (response.user) {
-        const user = response.user
+      if (response && response.data && response.data.user) {
+        const user = response.data.user
         if (user.token) {
           localStorage.setItem("token", user.token);
-          dispatch({type: ACTION_TYPES.LOGIN_SUCCESS});
           setError(null);
           setIsLoading(false);
+          dispatch({type: ACTION_TYPES.LOGIN_SUCCESS});
         }
       } else {
-        dispatch({type: ACTION_TYPES.LOGIN_FAILURE});
         setError(true);
         setIsLoading(false);
       }

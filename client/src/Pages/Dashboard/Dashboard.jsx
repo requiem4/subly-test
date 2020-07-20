@@ -115,20 +115,20 @@ export default function Dashboard(props) {
             className={classes.card}
           >
             <div className={classes.visitsNumberContainer}>
-              <Typography size="xl" weight="medium">
+              <div>
                 Max wav : {wavReport.maxMb} Mb
                 <div>
                   Max mp4 : {mp4Report.maxMb} Mb
                 </div>
-              </Typography>
+              </div>
             </div>
             <div className={classes.visitsNumberContainer}>
-              <Typography size="xl" weight="medium">
+              <div>
                 Min : {wavReport.minMb} Mb
                 <div>
                   Min mp4 : {mp4Report.minMb} Mb
                 </div>
-              </Typography>
+              </div>
             </div>
           </Widget>
         </Grid>

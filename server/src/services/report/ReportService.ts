@@ -21,14 +21,21 @@ class ReportService {
             mp4: {
                 minSize:0,
                 maxSize:0,
-                percent:0,
-                count: 0
+                type: 'wav',
+                size: 0,
+                percent: 0,
+                count: 0,
+                minMb: 0,
+                maxMb: 0
             },
             wav: {
                 minSize:0,
                 maxSize:0,
-                percent:0,
-                count: 0
+                size: 0,
+                percent: 0,
+                count: 0,
+                minMb: 0,
+                maxMb: 0
             }
         },
         maxFileSize: 0,
@@ -61,7 +68,9 @@ class ReportService {
         percents.map((filePercents: any) => {
             typesReport[filePercents.type] = {...typesReport[filePercents.type], ...filePercents};
         })
-        this.fileReport.types = typesReport
+        if(Object.keys(typesReport).length > 0){
+            this.fileReport.types = typesReport
+        }
         this.fileReport.totalFileCount = totalFileCount
 
         return this.fileReport;

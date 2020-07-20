@@ -18,6 +18,8 @@ function SignUpForm(props) {
   var [nameValue, setNameValue] = useState("");
   var [emailValue, setEmailValue] = useState("");
   var [passwordValue, setPasswordValue] = useState("");
+  var [countryOriginValue, setCountryOriginValue] = useState("");
+
   return (
     <React.Fragment>
       <Typography variant="h2" className={classes.subGreeting}>
@@ -81,7 +83,8 @@ function SignUpForm(props) {
         }}
         autoHighlight
         getOptionLabel={(option) => option.name}
-        value={(option) => option.code}
+        onChange={(event, value) => setCountryOriginValue(value.code)}
+        renderInput={(params) => <TextField {...params} label="Country origin" variant="outlined" />}
       />
       <div className={classes.creatingButtonContainer}>
         {isLoading ? (
@@ -89,17 +92,17 @@ function SignUpForm(props) {
         ) : (
           <Button
             onClick={() =>
-              signUp(
-                userDispatch,
+              userDispatch(signUp(
                 {
                   name: nameValue,
                   email: emailValue,
-                  password: passwordValue
+                  password: passwordValue,
+                  country_origin: countryOriginValue
                 },
                 props.history,
                 setIsLoading,
                 setError,
-              )
+              ))
             }
             disabled={
               emailValue.length === 0 ||

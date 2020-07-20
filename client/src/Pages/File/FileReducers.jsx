@@ -7,11 +7,19 @@ const initialState = {
     types: {
       mp4: {
         type: 'mp4',
-        size: 0
+        size: 0,
+        percent: 0,
+        count: 0,
+        minMb: 0,
+        maxMb: 0
       },
       wav: {
         type: 'wav',
-        size: 0
+        size: 0,
+        percent: 0,
+        count: 0,
+        minMb: 0,
+        maxMb: 0
       }
     },
     maxFileSize: 0,

@@ -26,7 +26,7 @@ class UserModel extends Model<UserInterface> implements UserInterface {
 
   public id!: number;
   public email!: string;
-  public name: string = '';
+  public name!: string;
   public country_origin!: string;
   public created_at: Date = new Date();
   public updated_at: Date = new Date();
