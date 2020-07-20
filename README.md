@@ -30,7 +30,7 @@
         Setup host and database access in /config/config.json
         </li>
     <li>
-    sequlizer or node_modules/.bin/sequelize db:migrate up
+    sequlizer or ../node_modules/.bin/sequelize db:migrate
     </li>
     <li>
     npm start

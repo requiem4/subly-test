@@ -17,7 +17,20 @@ class ReportService {
 
     private fileReport = {
         totalFileCount: 0,
-        types: {},
+        types: {
+            mp4: {
+                minSize:0,
+                maxSize:0,
+                percent:0,
+                count: 0
+            },
+            wav: {
+                minSize:0,
+                maxSize:0,
+                percent:0,
+                count: 0
+            }
+        },
         maxFileSize: 0,
         minFileSize: 0,
         avgFileSize: 0
