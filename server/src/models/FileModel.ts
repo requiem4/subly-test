@@ -44,6 +44,7 @@ class FileModel extends Model {
         const fileTypesCount = await FileModel.findAll({
             attributes: [
                 [Sequelize.fn('count', Sequelize.col('id')), 'count'],
+                [Sequelize.fn('AVG', Sequelize.col('size')), 'average'],
                 'type'
             ],
             group: ['type'],
