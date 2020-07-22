@@ -69,7 +69,8 @@ class ReportService {
             typesReport[filePercents.type] = {...typesReport[filePercents.type], ...filePercents};
         })
         if(Object.keys(typesReport).length > 0){
-            this.fileReport.types = typesReport
+            const defaultTypes = this.fileReport.types
+            this.fileReport.types = {...defaultTypes, ...typesReport}
         }
         this.fileReport.totalFileCount = totalFileCount
 

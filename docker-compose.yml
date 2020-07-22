@@ -1,17 +1,24 @@
-version: '2'
+version: '3'
 services:
-  mongodb:
-    image: "mongo"
-    ports:
-      - "27017:27017"
+  database:
+    image: "postgres" # use latest official postgres version
+    env_file:
+      - server/database.env # configure postgres
+    volumes:
+      - database-data:/var/lib/postgresql/data/ # persist data even if container shuts down
   backend:
     build: ./server/
+    environment:
+      DB_SCHEMA: subly
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_HOST: postgres
     ports:
       - "4001:4001"
     volumes:
       - ./server:/usr/src/server
     depends_on:
-      - mongodb
+      - postgres
   frontend:
     build: ./client/
     ports:
@@ -20,3 +27,5 @@ services:
       - ./client:/usr/src/client
     depends_on:
       - backend
+volumes:
+    database-data: # named volumes can be managed easier using docker-compose
