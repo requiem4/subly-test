@@ -28,6 +28,7 @@ services:
     tty: true
   frontend:
     build: ./client/
+    entrypoint: ["/bin/bash", "./entrypoint.sh"]
     ports:
       - "3000:3000"
     volumes:
