@@ -26,6 +26,21 @@ Subly test requires the following to run:
 [node]: https://nodejs.org/
 [npm]: https://www.npmjs.com/
 
+<h2>Installation via docker</h2>
+    <ul>
+        <li>
+            docker-compose build
+        </li>
+        <li>
+            docker-compose up
+            </li>
+    </ul>
+    <div> OR </div>
+    <ul>
+        <li>
+            docker-compose up --build
+        </li>
+    </ul>
 <h3>Setup client</h3>
 
 <ul>

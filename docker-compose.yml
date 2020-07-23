@@ -2,7 +2,6 @@ version: '3'
 services:
   database:
     image: "postgres" # use latest official postgres version
-    container_name: "my_postgres"
     env_file:
       - server/database.env # configure postgres
     volumes:
