@@ -34,6 +34,9 @@ Subly test requires the following to run:
         <li>
             docker-compose up
             </li>
+            <li>
+            http://localhost:3000/
+            </li>
     </ul>
     <div> OR </div>
     <ul>
