@@ -2,30 +2,44 @@ version: '3'
 services:
   database:
     image: "postgres" # use latest official postgres version
+    container_name: "my_postgres"
     env_file:
       - server/database.env # configure postgres
     volumes:
       - database-data:/var/lib/postgresql/data/ # persist data even if container shuts down
+    ports:
+      - "54320:5432"
   backend:
     build: ./server/
+    entrypoint: ["/bin/bash", "./entrypoint.sh"]
     environment:
       DB_SCHEMA: subly
       DB_USER: postgres
       DB_PASSWORD: postgres
       DB_HOST: postgres
+    expose:
+        - 4001
     ports:
       - "4001:4001"
     volumes:
       - ./server:/usr/src/server
     depends_on:
-      - postgres
+      - database
+    stdin_open: true
+    tty: true
   frontend:
     build: ./client/
+    expose:
+      - 3000
     ports:
       - "3000:3000"
     volumes:
       - ./client:/usr/src/client
     depends_on:
       - backend
+    stdin_open: true
+    tty: true
 volumes:
     database-data: # named volumes can be managed easier using docker-compose
+    server:
+    client:

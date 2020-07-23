@@ -8,7 +8,7 @@ import useStyles from "./styles";
 import LoginForm from "./LoginForm";
 import SignUpForm from "./SignUpForm";
 
-function AuthPage(props) {
+function AuthPage() {
   var classes = useStyles();
 
   var [activeTabId, setActiveTabId] = useState(0);

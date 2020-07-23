@@ -1,20 +1,27 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   const files = sequelize.define('files', {
-    id: DataTypes.Number,
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
     name: DataTypes.STRING,
-    path: DataTypes.STRING,
-    user_id: DataTypes.INT,
-    type: DataTypes.ENUM,
+    user_id: DataTypes.INTEGER,
+    type: {
+      type: DataTypes.ENUM,
+      values: ['mp4', 'wav'],
+    },
     upload_duration: DataTypes.STRING,
-    size: DataTypes.INT,
+    size: DataTypes.INTEGER,
     created_at: DataTypes.DATE,
     updated_at: DataTypes.DATE
   }, {
   });
 
   files.associate = function(models) {
-    files.belongsTo(models.users, { as: 'user_id' });
+    files.belongsTo(models.users);
   };
   return files;
 };

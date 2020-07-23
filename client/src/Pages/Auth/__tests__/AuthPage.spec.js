@@ -1,12 +1,18 @@
-import { AuthPage } from '../AuthPage'
-import { shallow } from 'enzyme'
+import AuthPage  from '../AuthPage'
+import Enzyme, { shallow } from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16';
+Enzyme.configure({ adapter: new Adapter() })
+import React from "react";
+import { render, unmountComponentAtNode } from "react-dom";
+import { act } from "react-dom/test-utils";
 
 describe('Auth Page',()=>{
-  let wrapper
+  debugger
+  let wrapper, container = '';
   const output = 10
 
   beforeEach(()=>{
-    wrapper = shallow(<AuthPage output={output}/>)
+    wrapper = shallow(<AuthPage/>)
 
   })
 
@@ -18,43 +24,25 @@ describe('Auth Page',()=>{
     expect(wrapper.find('input[placeholder="Output"]').prop('value')).toEqual(output)
   });
 
-});
+  it("renders with or without a name", () => {
+    act(() => {
+      render(<AuthPage />, wrapper);
+    });
+    expect(wrapper.textContent).toBe("Hey, stranger");
 
+    act(() => {
+      render(<AuthPage name="Jenny" />, wrapper);
+    });
+    expect(wrapper.textContent).toBe("Hello, Jenny!");
 
-
-import React from "react";
-import { render, unmountComponentAtNode } from "react-dom";
-import { act } from "react-dom/test-utils";
-
-import Hello from "./hello";
-
-let container = null;
-beforeEach(() => {
-  // setup a DOM element as a render target
-  container = document.createElement("div");
-  document.body.appendChild(container);
-});
-
-afterEach(() => {
-  // cleanup on exiting
-  unmountComponentAtNode(container);
-  container.remove();
-  container = null;
-});
-
-it("renders with or without a name", () => {
-  act(() => {
-    render(<Hello />, container);
+    act(() => {
+      render(<AuthPage name="Margaret" />, wrapper);
+    });
+    expect(wrapper.textContent).toBe("Hello, Margaret!");
   });
-  expect(container.textContent).toBe("Hey, stranger");
 
-  act(() => {
-    render(<Hello name="Jenny" />, container);
-  });
-  expect(container.textContent).toBe("Hello, Jenny!");
-
-  act(() => {
-    render(<Hello name="Margaret" />, container);
-  });
-  expect(container.textContent).toBe("Hello, Margaret!");
 });
+
+
+
+

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "pm2": "pm2 start processes.json --no-daemon",
-    "migrate": "node ./database/migrate.js",
+    "migrate": "node ./database/migrate.js && cd database && ../node_modules/.bin/sequelize db:migrate",
     "dev": "ts-node-dev --respawn --transpileOnly server.ts",
     "prod": "tsc && node ./build/server.js",
     "start": "nodemon start",
