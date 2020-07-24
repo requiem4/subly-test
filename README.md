@@ -1,4 +1,12 @@
 # Subly-test
+<p>
+   Front-end use React, Redux, Material UI.
+   On a server side Node js, Typescript, Sequelize.
+   Database: Postgres.
+</p>
+<p>
+</p>
+
 [![NPM version][shield-npm]](#)
 [![Node.js version support][shield-node]](#)
 [![Build status][shield-build]](#)
@@ -33,15 +41,13 @@ Subly test requires the following to run:
         </li>
         <li>
             docker-compose up
-            </li>
-            <li>
-            http://localhost:3000/
-            </li>
-    </ul>
-    <div> OR </div>
-    <ul>
+        </li>
+        <li> OR </li>
         <li>
             docker-compose up --build
+        </li>
+        <li>
+            http://localhost:3000/
         </li>
     </ul>
 <h3>Setup client</h3>
@@ -59,7 +65,7 @@ Subly test requires the following to run:
 </ul>
 
 <h3>Setup server</h3>
-
+<p>Written on typescript</p>
 <ul>
     <li>
     cd server
@@ -80,12 +86,3 @@ Subly test requires the following to run:
     npm start
     </li>
 </ul>
-<h2>
-Installation via docker
-</h2>
-<li>
-docker-compose build
-</li>
-<li>
-docker-compose up
-</li>
