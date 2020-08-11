@@ -50,6 +50,8 @@ Subly test requires the following to run:
             http://localhost:3000/
         </li>
     </ul>
+    
+<h2>Installation</h2>
 <h3>Setup client</h3>
 
 <ul>
